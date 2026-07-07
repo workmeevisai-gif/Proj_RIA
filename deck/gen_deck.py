@@ -629,11 +629,10 @@ card(s, MARGIN, cy, cw, ch, "The product",
       "silicon-proven reference and each customer's",
       "design-space exploration vehicle."])
 card(s, MARGIN + cw + gap, cy, cw, ch, "Revenue",
-     ["License fee per design win,",
-      "per-unit royalty on shipped SoCs,",
-      "annual compiler & toolchain subscription,",
-      "NRE for customer-specific tile-mix",
-      "configuration."])
+     ["A portfolio, not a single stream:",
+      "product revenue from year 1 (FPGA modules,",
+      "services), licensing engine compounding from",
+      "year 3 — detailed on the next two slides."])
 card(s, MARGIN + 2 * (cw + gap), cy, cw, ch, "Target segment",
      ["Value-edge SoCs: smart cameras, wearables,",
       "hearables, industrial sensing, automotive",
@@ -652,9 +651,88 @@ bullets(s, MARGIN, Inches(4.5), Inches(12.1), Inches(2.2), [
      "NPU block they can license without ARM-scale fees."),
 ], size=13.5, gap=12)
 
+# ============================================ S14 — REVENUE PORTFOLIO
+s = slide()
+chrome(s, 14, "Revenue is a portfolio — eight streams, one product",
+       "Business")
+rows = [
+    ["Stream", "What it is", "Starts", "Character"],
+    ["FPGA edge modules & dev kits",
+     "M.2 / PCIe / SoM accelerator cards for frozen-model verticals "
+     "(medical, industrial, radar) — sold before any ASIC exists",
+     "Year 1", "Early product cash"],
+    ["Model porting services",
+     "Paid optimization of customer models onto RIA",
+     "Year 1", "Services — capped by policy"],
+    ["Non-dilutive funding",
+     "DLI / India Semiconductor Mission grants, funded R&D",
+     "Year 0", "Cash without equity"],
+    ["Integration NRE",
+     "Customer-specific tile-mix configuration + integration support",
+     "Year 2", "Per engagement"],
+    ["Compiler & tools subscription",
+     "Annual license; scheduling gains ship to every licensee",
+     "Year 2", "Recurring — the gem"],
+    ["IP license fees",
+     "Upfront fee per design win for tile/fabric RTL + compiler",
+     "Year 2–3", "Lumpy, one-time"],
+    ["Per-unit royalties",
+     "Fee on every customer SoC shipped with RIA inside",
+     "Year 3–4", "Compounding, high margin"],
+    ["Hardened chiplet (future)",
+     "RIA as a UCIe chiplet SoC vendors drop in — a tier above RTL "
+     "licensing",
+     "Year 4+", "Optional expansion"],
+]
+table(s, MARGIN, Inches(1.55), Inches(12.13), [0.22, 0.44, 0.10, 0.24],
+      rows, size=10.5, row_h=Inches(0.56), header_h=Inches(0.36))
+tbox(s, MARGIN, Inches(6.45), Inches(12.1), Inches(0.5),
+     [("Every early stream doubles as pipeline: dev-kit buyers and "
+       "porting clients are tomorrow's licensees.", 13, True, ACCENT, 0)])
+
+# ============================================ S15 — REVENUE PHASING
+s = slide()
+chrome(s, 15, "Revenue phasing — and the discipline it demands", "Business")
+phases = [
+    ("YEARS 0–1", "Survive & build", [
+        "Grants and funded R&D cover the runway",
+        "Dev kits + porting services bring first paying users",
+        "Every engagement stress-tests the compiler on real models"]),
+    ("YEARS 1–3", "Product revenue", [
+        "FPGA modules ship into frozen-model verticals",
+        "First evaluation licenses + integration NRE",
+        "Compiler subscriptions begin with early licensees"]),
+    ("YEARS 3+", "The engine compounds", [
+        "Royalties ramp as customer SoCs reach production",
+        "Subscriptions renew on measurable scheduling gains",
+        "Optional chiplet tier opens higher-margin deals"]),
+]
+cw, gap = Inches(3.94), Inches(0.16)
+for i, (when, name, items) in enumerate(phases):
+    x = MARGIN + i * (cw + gap)
+    c = rect(s, x, Inches(1.6), cw, Inches(2.9), fill=LIGHT, line=CARD_LINE,
+             shape=MSO_SHAPE.ROUNDED_RECTANGLE)
+    c.adjustments[0] = 0.05
+    body = [(when, 11, True, ACCENT, 3), (name, 17, True, NAVY, 10)]
+    for it in items:
+        body.append(("•  " + it, 12, False, GRAY, 7))
+    text_in(c, body, inset=0.18)
+    rect(s, x, Inches(1.6), cw, Inches(0.07), fill=ACCENT)
+bullets(s, MARGIN, Inches(4.85), Inches(12.1), Inches(1.9), [
+    ("Royalty lag is real", "design win to tape-out to production ramp "
+     "takes 3–4 years — the early streams exist to bridge exactly "
+     "that gap, and we say so."),
+    ("Services are a bridge, not the business", "capped at a fixed share "
+     "of revenue and headcount, or they quietly consume the product "
+     "roadmap."),
+    ("One product underneath all eight streams", "modules, services, "
+     "licenses, and royalties all monetize the same tile + compiler — "
+     "no stream forks the engineering."),
+], size=13, gap=11)
+
 # ============================================ S14 — ROADMAP
 s = slide()
-chrome(s, 14, "Roadmap — milestones, not checkmarks", "Execution")
+chrome(s, 16, "Roadmap — milestones, not checkmarks", "Execution")
 phases = [
     ("Phase 1  •  months 0–6", "Foundations", [
         "Tile RTL + ISA specification frozen",
@@ -690,7 +768,7 @@ tbox(s, MARGIN, Inches(5.6), Inches(12.1), Inches(0.5),
 
 # ============================================ S15 — RISKS
 s = slide()
-chrome(s, 15, "Risks — stated, owned, and instrumented", "Honesty")
+chrome(s, 17, "Risks — stated, owned, and instrumented", "Honesty")
 rows = [
     ["Risk", "Reality", "Mitigation & metric"],
     ["Efficiency gap vs.\nfixed-function",
